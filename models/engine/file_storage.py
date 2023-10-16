@@ -39,8 +39,12 @@ class FileStorage:
 
     def __new_class(self, _dict):
         """Create new object"""
+
+        _obj = self.classes()[_dict["__class__"]](**_dict)
+        return _obj
+
+    def classes(self):
+        """Create new object"""
         from models.base_model import BaseModel
 
-        classes = {"BaseModel": BaseModel}
-        _obj = classes[_dict["__class__"]](**_dict)
-        return _obj
+        return {"BaseModel": BaseModel}
