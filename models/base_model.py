@@ -3,6 +3,7 @@
 
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -33,12 +34,15 @@ class BaseModel:
                     continue
                 else:
                     self.__dict__[key] = kwargs[key]
+        else:
+            storage.new(self)
 
     def save(self):
         """Update the public instance attribute
         updated_at with the current datetime."""
 
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """
