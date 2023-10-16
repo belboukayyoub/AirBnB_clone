@@ -29,6 +29,8 @@ class BaseModel:
                     self.__dict__["updated_at"] = datetime.strptime(
                         kwargs["updated_at"], time_format
                     )
+                elif key == "__class__":
+                    continue
                 else:
                     self.__dict__[key] = kwargs[key]
 
