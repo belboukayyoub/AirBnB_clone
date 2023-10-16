@@ -46,5 +46,9 @@ class FileStorage:
     def classes(self):
         """Create new object"""
         from models.base_model import BaseModel
+        from models.user import User
 
-        return {"BaseModel": BaseModel}
+        return {
+            "BaseModel": BaseModel,
+            "User": User,
+        }
