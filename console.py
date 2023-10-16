@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Command interpreter for AirBnB clone project
+"""
 import cmd
 
 
@@ -14,10 +17,11 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, line):
-        "Exit"
+        "Function to handle EOF"
         return True
 
     def emptyline(self):
+        """Called when an empty line is entered."""
         pass  # Do nothing on an empty line
 
 
