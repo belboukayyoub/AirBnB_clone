@@ -32,22 +32,41 @@ class HBNBCommand(cmd.Cmd):
             b.save()
             print(b.id)
 
-    def do_show(self, arg):
+    def do_show(self, line):
         """show: show [Class] [ID]"""
-        arg = arg.split()
+        line = line.split()
         data = storage.all()
-        if len(arg) == 0:
+        if len(line) == 0:
             print("** class name missing **")
-        elif arg[0] not in storage.classes():
+        elif line[0] not in storage.classes():
             print("** class doesn't exist **")
-        elif len(arg) == 1:
+        elif len(line) == 1:
             print("** instance id missing **")
         else:
-            key = "{}.{}".format(arg[0], arg[1])
+            key = "{}.{}".format(line[0], line[1])
             if key not in data:
                 print("** no instance found **")
             else:
                 print(data[key])
+
+    def do_destroy(self, line):
+        """Deletes an instance based on the class name and id."""
+        if line == "" or line is None:
+            print("** class name missing **")
+        else:
+            line = line.split()
+            if line[0] not in storage.classes():
+                print("** class doesn't exist **")
+            elif len(line) == 1:
+                print("** instance id missing **")
+            else:
+                data = storage.all()
+                key = "{}.{}".format(line[0], line[1])
+                if key not in data:
+                    print("** no instance found **")
+                else:
+                    del data[key]
+                    storage.save()
 
 
 if __name__ == "__main__":
