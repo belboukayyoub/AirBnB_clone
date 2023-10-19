@@ -16,25 +16,19 @@ class BaseModel:
                 - *args (any): Unused
                 - **kwargs (dict): dict of key-values arguments
         """
-        time_format = "%Y-%m-%dT%H:%M:%S.%f"
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = self.created_at
-        if kwargs is not None and kwargs != {}:
-            for key in kwargs:
-                if key == "created_at":
-                    self.__dict__["created_at"] = datetime.strptime(
-                        kwargs["created_at"], time_format
-                    )
-                elif key == "updated_at":
-                    self.__dict__["updated_at"] = datetime.strptime(
-                        kwargs["updated_at"], time_format
-                    )
-                elif key == "__class__":
+        if kwargs:
+            time_format = '%Y-%m-%dT%H:%M:%S.%f'
+            for key, val in kwargs.items():
+                if key == '__class__':
                     continue
+                elif key == 'created_at' or key == 'updated_at':
+                    setattr(self, key, datetime.strptime(val, time_format))
                 else:
-                    self.__dict__[key] = kwargs[key]
+                    setattr(self, key, val)
         else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
             storage.new(self)
 
     def save(self):
