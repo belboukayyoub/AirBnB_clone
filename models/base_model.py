@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""module defines a base class for all other classes to inherit from."""
+"""
+module defines a base class for all other classes to inherit from.
+"""
 
 import uuid
 from datetime import datetime
@@ -7,7 +9,9 @@ from models import storage
 
 
 class BaseModel:
-    """Class for all other classes to inherit from."""
+    """
+    Class for all other classes to inherit from.
+    """
 
     def __init__(self, *args, **kwargs):
         """Initialize a BaseModel instance.
