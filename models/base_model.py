@@ -9,6 +9,7 @@ from models import storage
 
 
 class BaseModel:
+
     """
     Class for all other classes to inherit from.
     """
@@ -41,6 +42,11 @@ class BaseModel:
         else:
             storage.new(self)
 
+    def __str__(self):
+        """Return a string representation of the object."""
+
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+
     def save(self):
         """Update the public instance attribute
         updated_at with the current datetime."""
@@ -62,8 +68,3 @@ class BaseModel:
         obj_dict["updated_at"] = self.updated_at.isoformat()
         obj_dict["__class__"] = self.__class__.__name__
         return obj_dict
-
-    def __str__(self):
-        """Return a string representation of the object."""
-
-        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
